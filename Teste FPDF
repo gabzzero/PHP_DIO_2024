@@ -1,0 +1,41 @@
+<?php
+require('path/to/fpdf.php');
+
+class PDF extends FPDF
+{
+    // Cabeçalho
+    function Header()
+    {
+        // Fonte Arial negrito 15
+        $this->SetFont('Arial', 'B', 15);
+        // Título
+        $this->Cell(0, 10, 'Relatório Exemplo', 0, 1, 'C');
+        // Quebra de linha
+        $this->Ln(10);
+    }
+
+    // Rodapé
+    function Footer()
+    {
+        // Posição a 1,5 cm do final
+        $this->SetY(-15);
+        // Fonte Arial itálico 8
+        $this->SetFont('Arial', 'I', 8);
+        // Número da página
+        $this->Cell(0, 10, 'Página ' . $this->PageNo(), 0, 0, 'C');
+    }
+
+    // Conteúdo do relatório
+    function ReportContent()
+    {
+        $this->SetFont('Arial', '', 12);
+        $this->Cell(0, 10, 'Este é um exemplo de relatório em PDF gerado com FPDF.', 0, 1);
+    }
+}
+
+// Instanciação da classe herdada
+$pdf = new PDF();
+$pdf->AddPage();
+$pdf->ReportContent();
+$pdf->Output();
+?>
